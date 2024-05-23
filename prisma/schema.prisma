@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js" // gerador de cliente prisma
+}
+
+datasource db {
+  provider = "sqlite" // tipo de banco de dados
+  url      = env("DATABASE_URL")
+}
+
+model Event {
+  id               String     @id @default(uuid()) // id aleatorio
+  title            String // titulo do evento
+  details          String? // detalhes do evento, ? opcional
+  slug             String     @unique // url amigavel, troca o id aleatorio pelo nome do evento
+  maximumAttendees Int?       @map("maximum_attendees") // numero maximo de participantes, ? opcional
+  attendees        Attendee[]
+
+  @@map("events") // nome da tabela no banco de dados
+}
+
+model Attendee {
+  id        Int      @id @default(autoincrement()) // id sequencial
+  name      String // nome do participante
+  email     String // email do participante
+  createdAt DateTime @default(now()) @map("created_at") // data de criação do participante preenchido com a data atual
+  eventId   String   @map("event_id") // id do evento que o participante vai participar
+
+  event Event @relation(fields: [eventId], references: [id]) // relacionamento entre o participante e o evento
+
+  @@unique([eventId, email]) // chave unica para o email e o id do evento
+  @@map("attendees") // Renomeando o nome da tabela no banco de dados
+}

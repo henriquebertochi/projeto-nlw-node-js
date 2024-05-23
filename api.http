@@ -1,0 +1,26 @@
+POST http://localhost:3333/events
+Content-Type: application/json
+
+{
+    "title": "Novo Evento 2",
+    "details": null,
+    "maximumAttendees": 1
+}
+
+### 
+
+POST http://localhost:3333/events/6a2c7ce8-8a80-4bf4-ac10-f0c509fcd434/attendees
+Content-Type: application/json
+
+{
+    "name": "Diego Fernandes",
+    "email": "diego2@rocketseat.com.br"
+}
+
+###
+
+GET http://localhost:3333/events/6a2c7ce8-8a80-4bf4-ac10-f0c509fcd434
+
+###
+
+GET http://localhost:3333/attendees/4/badge

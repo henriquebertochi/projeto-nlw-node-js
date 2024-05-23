@@ -55,4 +55,9 @@
 ## Run
     npm i tsx -D
     npx tsx src/server.ts
-    tsx prisma studio
+    npx prisma studio
+
+    npm run start
+
+    "db:migrate": "prisma migrate dev",
+    "db:studio": "prisma studio",
